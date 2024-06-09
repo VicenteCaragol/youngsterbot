@@ -27,7 +27,24 @@ class Mon():
         self.species= species
         self.stats = mon_data[species]
         self.attacks= [None]*4
-        self.hp= self.stats['HP']
+        self._hp= self.stats['HP']
+        self._fainted=False
+
+
+    @property
+    def hp(self):
+        return self._hp
+    
+    @hp.setter
+    def hp(self, value):
+        self._hp = value
+        # Update b based on the new value of a
+        self._fainted = True if self._hp == 0 else False
+
+    @property
+    def fainted(self):
+        return self._fainted
+
     
     def set_attack(self,name,index):
         self.attacks[index]= Attack(name)
